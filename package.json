@@ -2,6 +2,7 @@
     "name": "gtk-dark-titlebar",
     "version": "1.0.0",
     "publisher": "fkrull",
+    "license": "BSD-2-Clause",
     "engines": {
         "vscode": "^1.16.0"
     },
@@ -12,7 +13,8 @@
     "scripts": {
         "vscode:prepublish": "npm run compile",
         "compile": "lumo build.cljs",
-        "watch": "nodemon build.cljs"
+        "watch": "nodemon build.cljs",
+        "test": "lumo src/test/main.cljs"
     },
     "devDependencies": {
         "lumo-cljs": "1.8.0-beta",
