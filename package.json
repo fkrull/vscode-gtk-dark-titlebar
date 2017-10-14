@@ -1,0 +1,31 @@
+{
+    "name": "gtk-dark-titlebar",
+    "version": "1.0.0",
+    "publisher": "fkrull",
+    "engines": {
+        "vscode": "^1.16.0"
+    },
+    "main": "./extension",
+    "activationEvents": [
+        "*"
+    ],
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "lumo build.cljs",
+        "watch": "nodemon build.cljs"
+    },
+    "devDependencies": {
+        "lumo-cljs": "1.8.0-beta",
+        "nodemon": "^1.12.1",
+        "vscode": "^1.1.5"
+    },
+    "nodemonConfig": {
+        "ignore": [
+            "out"
+        ],
+        "ext": "cljs",
+        "execMap": {
+            "cljs": "lumo"
+        }
+    }
+}

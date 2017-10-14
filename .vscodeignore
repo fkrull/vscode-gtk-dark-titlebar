@@ -1,0 +1,7 @@
+.vscode/**
+src/**
+out/**/*.cljs
+out/**/*.js.map
+.gitignore
+build.cljs
+yarn.lock
