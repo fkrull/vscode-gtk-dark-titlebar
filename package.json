@@ -10,11 +10,28 @@
     "activationEvents": [
         "*"
     ],
+    "contributes": {
+        "configuration": {
+            "title": "GTK title bar settings",
+            "properties": {
+                "gtkTitleBar.mode": {
+                    "type": "string",
+                    "enum": [
+                        "auto",
+                        "light",
+                        "dark"
+                    ],
+                    "default": "auto",
+                    "description": "Specifies the theme for the GTK title bar."
+                }
+            }
+        }
+    },
     "scripts": {
         "vscode:prepublish": "npm run compile",
         "compile": "lumo build.cljs",
         "watch": "nodemon build.cljs",
-        "test": "lumo src/test/main.cljs"
+        "test": "lumo -c lib -c src src/test/main.cljs"
     },
     "devDependencies": {
         "lumo-cljs": "1.8.0-beta",
