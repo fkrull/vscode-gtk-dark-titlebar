@@ -7,14 +7,6 @@
     (async/timeout 0 done
         (extension.async/waterfall [done])))
 
-(deftest waterfall-should-pass-arg-to-initial-function
-    (async/timeout 0 done
-        (extension.async/waterfall
-            "value"
-            [(fn [value]
-                 (is (= value "value"))
-                 (done))])))
-
 (deftest waterfall-should-call-two-functions-in-sequence
     (async/timeout 0 all-done
         (extension.async/waterfall
@@ -33,3 +25,26 @@
                  (is (= arg 3))
                  (done))
              all-done])))
+
+(deftest waterfall-should-throw-error-if-error-is-passed
+    (async/timeout 0 all-done
+        (try
+            (extension.async/waterfall
+                [(fn [done] (done "error"))
+                 (fn []
+                     (is false "shouldn't reach this")
+                     (all-done))])
+            (catch :default error
+                (is (= error "error"))
+                (all-done)))))
+
+(deftest waterfall-should-call-catch-handler-if-specified
+    (async/timeout 0 all-done
+        (extension.async/waterfall
+            [(fn [done] (done "error"))
+             (fn []
+                 (is false "shouldn't reach this")
+                 (all-done))]
+            :catch (fn [error]
+                       (is (= error "error"))
+                       (all-done)))))

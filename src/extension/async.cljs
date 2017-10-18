@@ -1,15 +1,17 @@
 (ns extension.async)
 
 (defn waterfall-internal
-    ([values action]
+    ([values catch action]
      (apply action values))
-    ([values action & actions]
+    ([values catch action & actions]
      (let [callback (fn [error & values]
-                        (apply waterfall-internal (cons (vec values) actions)))]
+                        (if (not (nil? error))
+                            (catch error)
+                            (apply waterfall-internal (list* (vec values) catch actions))))]
           (apply action (conj values callback)))))
 
+(defn throw-helper [error] (throw error))
+
 (defn waterfall
-    ([actions]
-     (apply waterfall-internal (cons [] (list* actions))))
-    ([value actions]
-     (apply waterfall-internal (cons [value] (list* actions)))))
+    ([actions & { :keys [catch] :or {catch nil}}]
+     (apply waterfall-internal (list* [] (or catch throw-helper) actions))))
