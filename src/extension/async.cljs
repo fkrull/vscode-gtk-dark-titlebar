@@ -1,13 +1,15 @@
 (ns extension.async)
 
 (defn waterfall-internal
-    ([values callback]
-     (apply callback values))
-    ([values callback & callbacks]
-     ;(println values)
-     ;(println callback)
-     ;(println callbacks)
-     ;(println (conj values (fn [& values] (apply waterfall-internal (cons values callbacks)))))
-     (apply callback (conj values (fn [& values] (apply waterfall-internal (cons (vec values) callbacks)))))))
+    ([values action]
+     (apply action values))
+    ([values action & actions]
+     (let [callback (fn [error & values]
+                        (apply waterfall-internal (cons (vec values) actions)))]
+          (apply action (conj values callback)))))
 
-(defn waterfall [& callbacks] (apply waterfall-internal (cons [] callbacks)))
+(defn waterfall
+    ([actions]
+     (apply waterfall-internal (cons [] (list* actions))))
+    ([value actions]
+     (apply waterfall-internal (cons [value] (list* actions)))))
