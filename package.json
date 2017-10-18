@@ -29,7 +29,7 @@
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
-        "compile": "lumo build.cljs",
+        "compile": "lumo -c lib -c src build.cljs",
         "watch": "nodemon build.cljs",
         "test": "lumo -c lib -c src src/test/main.cljs"
     },
@@ -44,7 +44,7 @@
         ],
         "ext": "cljs",
         "execMap": {
-            "cljs": "lumo"
+            "cljs": "lumo -c lib -c src"
         }
     }
 }

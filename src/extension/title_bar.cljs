@@ -1,4 +1,3 @@
 (ns extension.title-bar)
 
-(defn update-title-bar []
-    ())
+(defn update-title-bar! [])

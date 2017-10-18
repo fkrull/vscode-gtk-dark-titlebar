@@ -2,7 +2,7 @@
     (:require [cljs.nodejs]
               [vscode.core]
               [vscode.workspace]
-              [extension.title-bar]))
+              [extension.title-bar :refer [update-title-bar!]]))
 
 (def *disposables* [])
 
