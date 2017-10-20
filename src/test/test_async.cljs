@@ -3,51 +3,58 @@
               [extension.async])
     (:require-macros [test.helper.async :as async]))
 
-(deftest waterfall-should-call-one-function
-    (async/timeout 0 done
-        (extension.async/waterfall [done])))
+(deftest waterfall-should-call-one-function-and-pass-result-to-callback
+    (async/timeout 0 all-done
+        (extension.async/waterfall
+            [#(% nil 1)]
+            (fn [error value]
+                (is (nil? error))
+                (is (= value 1))
+                (all-done)))))
 
 (deftest waterfall-should-call-two-functions-in-sequence
     (async/timeout 0 all-done
         (extension.async/waterfall
-            [(fn [done] (done nil "some value"))
-             (fn [some-value]
-                 (is (= some-value "some value"))
-                 (all-done))])))
+            [#(% nil "some value") #(%2 nil %1)]
+            (fn [error value]
+                (is (nil? error))
+                (is (= value "some value"))
+                (all-done)))))
 
 (deftest waterfall-should-call-many-functions-in-sequence
     (async/timeout 0 all-done
         (extension.async/waterfall
-            [(fn [done] (done nil 1))
+            [#(% nil 1)
              (fn [arg done] (done nil (+ arg 1)))
-             (fn [arg done] (done nil (+ arg 1)))
-             (fn [arg done]
-                 (is (= arg 3))
-                 (done))
-             all-done])))
-
-(deftest waterfall-should-throw-error-if-error-is-passed
-    (async/timeout 0 all-done
-        (try
-            (extension.async/waterfall
-                [(fn [done] (done "error"))
-                 (fn []
-                     (is false "shouldn't reach this")
-                     (all-done))])
-            (catch :default error
-                (is (= error "error"))
+             (fn [arg done] (done nil (+ arg 1)))]
+            (fn [error value]
+                (is (nil? error))
+                (is (= value 3))
                 (all-done)))))
 
-(deftest waterfall-should-call-catch-handler-if-specified
+(deftest waterfall-should-pass-through-multiple-values
+    (async/timeout 0 all-done
+        (extension.async/waterfall
+            [#(% nil 1 2 3)
+             (fn [arg1 arg2 arg3 done] (done nil (+ arg1 1) (+ arg2 1) (+ arg3 1)))]
+            (fn [error value1 value2 value3]
+                (is (nil? error))
+                (is (= value1 2))
+                (is (= value2 3))
+                (is (= value3 4))
+                (all-done)))))
+
+(deftest waterfall-should-abort-and-pass-error-to-callback-on-error
     (async/timeout 0 all-done
         (extension.async/waterfall
             [(fn [done] (done "error"))
-             (fn []
+             (fn [done]
                  (is false "shouldn't reach this")
                  (all-done))]
-            :catch (fn [error]
-                       (is (= error "error"))
-                       (all-done)))))
+            (fn [error value]
+                (is (= error "error"))
+                (is (nil? value))
+                (all-done)))))
 
 (deftest parallel-should-call-functions-in-parallel-and-pass-results-to-callback-in-order
     (async/timeout 100 all-done
