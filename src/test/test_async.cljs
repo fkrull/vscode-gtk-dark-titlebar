@@ -48,3 +48,12 @@
             :catch (fn [error]
                        (is (= error "error"))
                        (all-done)))))
+
+(deftest parallel-should-call-functions-in-parallel-and-pass-results-to-callback-in-order
+    (async/timeout 100 all-done
+        (extension.async/parallel
+            [(fn [done] (js/setTimeout (partial done nil "value 1") 75))
+             (fn [done] (js/setTimeout (partial done nil "value 2") 50))]
+            (fn [error values]
+                (is (= values ["value 1" "value 2"]))
+                (all-done)))))

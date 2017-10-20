@@ -4,14 +4,14 @@
     (:require-macros [test.helper.async :as async]))
 
 (deftest error-callback
-    (async/timeout 500 done
+    (async/timeout 2000 done
         (extension.process/get-output "non-existing-binary" []
             (fn [error code output]
                 (is (not (nil? error)))
                 (done)))))
 
 (deftest get-output-from-command
-    (async/timeout 500 done
+    (async/timeout 2000 done
         (extension.process/get-output process.execPath ["-e" "(println \"test output\")"]
             (fn [error code output]
                 (is (nil? error))

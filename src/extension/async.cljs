@@ -13,5 +13,27 @@
 (defn throw-helper [error] (throw error))
 
 (defn waterfall
-    ([actions & { :keys [catch] :or {catch nil}}]
-     (apply waterfall-internal (list* [] (or catch throw-helper) actions))))
+    [actions & { :keys [catch] :or {catch nil}}]
+    (apply waterfall-internal (list* [] (or catch throw-helper) actions))
+    nil)
+
+(deftype ParallelState [^:mutable results num-actions callback])
+
+(deftype ParallelResult [index value])
+
+(defn callback-with-results [results callback]
+    (callback nil (map #(.-value %) (sort-by #(.-index %) results))))
+
+(defn add-result [state index value]
+    (set! (.-results state) (conj (.-results state) (ParallelResult. index value)))
+    (when (= (count (.-results state)) (.-num-actions state))
+        (callback-with-results (.-results state) (.-callback state))))
+
+(defn parallel
+    [actions callback]
+    (let [state (ParallelState. [] (count actions) callback)]
+         (doall (map-indexed
+                    (fn [index item]
+                        (item (fn [error value] (add-result state index value))))
+                    actions)))
+    nil)
