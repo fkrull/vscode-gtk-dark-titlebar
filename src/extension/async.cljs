@@ -31,7 +31,7 @@
 (defn action-callback [state index error value]
     (if (nil? error)
         (add-result state index value)
-        (.callback state error nil)))
+        (.callback state error)))
 
 (defn invoke-all-async [state actions]
     (map-indexed

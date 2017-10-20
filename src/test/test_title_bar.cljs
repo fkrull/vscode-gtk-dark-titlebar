@@ -19,7 +19,7 @@
 
 (deftest should-get-wid-to-pid-command
     (is (=
-         (extension.title-bar/get-window-pid-command "0xdeadbeef")
+         (extension.title-bar/window-pid-command "0xdeadbeef")
          ["xprop" "-id" "0xdeadbeef" "_NET_WM_PID"])))
 
 (deftest should-get-gtk-dark-theme-command
