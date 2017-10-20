@@ -57,3 +57,13 @@
             (fn [error values]
                 (is (= values ["value 1" "value 2"]))
                 (all-done)))))
+
+(deftest parallel-should-only-pass-error-to-callback
+    (async/timeout 0 all-done
+        (extension.async/parallel
+            [#(js/setTimeout (partial % nil "success") 0)
+             #(js/setTimeout (partial % "error") 0)]
+            (fn [error values]
+                (is (= error "error"))
+                (is (nil? values))
+                (all-done)))))

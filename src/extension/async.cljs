@@ -29,11 +29,18 @@
     (when (= (count (.-results state)) (.-num-actions state))
         (callback-with-results (.-results state) (.-callback state))))
 
+(defn action-callback [state index error value]
+    (if (nil? error)
+        (add-result state index value)
+        (.callback state error nil)))
+
+(defn invoke-all-async [state actions]
+    (map-indexed
+        (fn [index item] (item (partial action-callback state index)))
+        actions))
+
 (defn parallel
     [actions callback]
     (let [state (ParallelState. [] (count actions) callback)]
-         (doall (map-indexed
-                    (fn [index item]
-                        (item (fn [error value] (add-result state index value))))
-                    actions)))
+         (doall (invoke-all-async state actions)))
     nil)
