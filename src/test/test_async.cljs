@@ -1,5 +1,5 @@
 (ns test.test-async
-    (:require [cljs.test :refer-macros [async deftest is]]
+    (:require [cljs.test :refer-macros [deftest is]]
               [extension.async])
     (:require-macros [test.helper.async :as async]))
 
