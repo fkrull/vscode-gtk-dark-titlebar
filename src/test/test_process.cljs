@@ -5,14 +5,14 @@
 
 (deftest error-callback
     (async/timeout 2000 done
-        (extension.process/get-output "non-existing-binary" []
+        (extension.process/get-output ["non-existing-binary"]
             (fn [error code output]
                 (is (not (nil? error)))
                 (done)))))
 
 (deftest get-output-from-command
     (async/timeout 2000 done
-        (extension.process/get-output process.execPath ["-e" "(println \"test output\")"]
+        (extension.process/get-output [process.execPath "-e" "(println \"test output\")"]
             (fn [error code output]
                 (is (nil? error))
                 (is (= code 0))

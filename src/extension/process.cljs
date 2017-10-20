@@ -2,10 +2,10 @@
     (:require [child_process]
               [clojure.string :as string]))
 
-(defn get-output [cmd args callback]
+(defn get-output [args callback]
     (let [output (atom [])
           callback-called (atom false)
-          proc (child_process/spawn cmd (apply array args))]
+          proc (child_process/spawn (first args) (apply array (rest args)))]
          (.on (.-stdout proc) "data" (fn [data]
                                          (reset! output (conj @output (.toString data)))))
          (.on proc "exit" (fn [code]

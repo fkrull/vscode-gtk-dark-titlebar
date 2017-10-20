@@ -16,3 +16,18 @@
     (is (=
          (extension.title-bar/parse-window-pid "_NET_WM_PID(CARDINAL) = 1564")
          1564)))
+
+(deftest should-get-wid-to-pid-command
+    (is (=
+         (extension.title-bar/get-window-pid-command "0xdeadbeef")
+         ["xprop" "-id" "0xdeadbeef" "_NET_WM_PID"])))
+
+(deftest should-get-gtk-dark-theme-command
+    (is (=
+         (extension.title-bar/gtk-theme-variant-command "0xdeadbeef" :dark)
+         ["xprop" "-id" "0xdeadbeef" "-f" "_GTK_THEME_VARIANT" "8u" "-set" "_GTK_THEME_VARIANT" "dark"])))
+
+(deftest should-get-gtk-light-theme-command
+    (is (=
+         (extension.title-bar/gtk-theme-variant-command "0xdeadbeef" :light)
+         ["xprop" "-id" "0xdeadbeef" "-f" "_GTK_THEME_VARIANT" "8u" "-set" "_GTK_THEME_VARIANT" "light"])))
