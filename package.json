@@ -6,7 +6,7 @@
     "engines": {
         "vscode": "^1.16.0"
     },
-    "main": "./extension",
+    "main": "./out/src/extension",
     "activationEvents": [
         "*"
     ],
@@ -29,22 +29,17 @@
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
-        "compile": "lumo -c lib -c src build.cljs",
-        "watch": "nodemon build.cljs",
-        "test": "lumo -c lib -c src src/test/main.cljs"
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "lumo-cljs": "1.8.0-beta",
-        "nodemon": "^1.12.1",
+        "@types/mocha": "^2.2.42",
+        "@types/node": "^7.0.43",
+        "mocha": "^3.5.0",
+        "tslint": "^5.7.0",
+        "typescript": "^2.5.2",
         "vscode": "^1.1.5"
-    },
-    "nodemonConfig": {
-        "ignore": [
-            "out"
-        ],
-        "ext": "cljs",
-        "execMap": {
-            "cljs": "lumo -c lib -c src"
-        }
     }
 }
