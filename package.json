@@ -2,10 +2,24 @@
     "name": "gtk-dark-titlebar",
     "version": "1.0.0",
     "publisher": "fkrull",
+    "displayName": "GTK Dark Title Bar",
+    "description": "Match the GNOME title bar color to your theme",
     "license": "BSD-2-Clause",
+    "author": {
+        "name": "Felix Krull"
+    },
+    "homepage": "https://github.com/fkrull/vscode-gtk-dark-titlebar",
+    "bugs": "https://github.com/fkrull/vscode-gtk-dark-titlebar/issues",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/fkrull/vscode-gtk-dark-titlebar.git"
+    },
     "engines": {
         "vscode": "^1.16.0"
     },
+    "categories": [
+        "Other"
+    ],
     "main": "./out/src/extension",
     "activationEvents": [
         "*"
