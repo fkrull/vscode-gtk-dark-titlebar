@@ -1,12 +1,12 @@
 import * as assert from 'assert';
 
-import processOutput from '../src/processOutput';
+import processOutput from '../src/process-output';
 
 function fail(message: string) {
     assert.fail(undefined, undefined, message);
 }
 
-suite('process.getOutput', function() {
+suite('process-output', function() {
 
     this.timeout(2000);
     this.slow(500);
