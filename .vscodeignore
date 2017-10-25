@@ -4,6 +4,7 @@ typings/**
 .vscode/**
 
 out/**/*.js.map
+out/test/**
 
 .gitignore
 tsconfig.json
