@@ -5,29 +5,26 @@ export enum GtkThemeVariant {
     Dark,
 }
 
+function match(text: string, term: string | RegExp): string[] {
+    const matches = text.match(term);
+    return matches != null ? matches : [];
+}
+
 export async function setGtkThemeVariant(
         variant: GtkThemeVariant,
         processOutput: typeof defaultProcessOutput = defaultProcessOutput): Promise<void> {
-    const pids = await processOutput(['pidof', process.execPath]);
-    const windowIds = (await processOutput(['xprop', '-root', '_NET_CLIENT_LIST'])).match(/0x[\da-fA-F]+/g);
-    if (windowIds === null) {
-        return;
-    }
-    const windowPids = await Promise.all(windowIds.map(async (match): Promise<[string, string | null]> => {
-        const pid = (await processOutput(['xprop', '-id', match, '_NET_WM_PID'])).match(/\d+/);
-        if (pid === null) {
-            return [match, null];
-        } else {
-            return [match, pid[0]];
-        }
+    const pids = match(await processOutput(['pidof', process.execPath]), /\d+/g).map((s) => parseInt(s, 10));
+    const windowIds = match(await processOutput(['xprop', '-root', '_NET_CLIENT_LIST']), /0x[\da-fA-F]+/g);
+    const windowPids = await Promise.all(windowIds.map(async (wid): Promise<[string, number]> => {
+        const pid = match(await processOutput(['xprop', '-id', wid, '_NET_WM_PID']), /\d+/);
+        return [wid, parseInt(pid[0], 10)];
     }));
 
     const setters: Array<Promise<string>> = [];
     for (const [wid, pid] of windowPids) {
-        if (pid === null) {
-            continue;
+        if (pids.includes(pid)) {
+            setters.push(processOutput(['xprop', '-id', wid, '-f', '_GTK_THEME_VARIANT', '8u', '-set', '_GTK_THEME_VARIANT', variant === GtkThemeVariant.Dark ? 'dark' : 'light']));
         }
-        setters.push(processOutput(['xprop', '-id', wid, '-f', '_GTK_THEME_VARIANT', '8u', '-set', '_GTK_THEME_VARIANT', variant === GtkThemeVariant.Dark ? 'dark' : 'light']));
     }
     await Promise.all(setters);
 }
