@@ -10,7 +10,7 @@
             "es2016.array.include"
         ],
         "sourceMap": true,
-        "rootDir": ".",
+        "rootDir": "."
     },
     "exclude": [
         "node_modules",
