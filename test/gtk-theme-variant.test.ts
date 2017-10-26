@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import { Mock, MockBehavior, Times } from 'typemoq';
 
-import { GtkThemeVariant, setGtkThemeVariant } from '../src/gtk-theme-variant';
+import { setGtkThemeVariant } from '../src/gtk-theme-variant';
 import processOutput from '../src/process-output';
 
 suite('gtk-theme-variant.setGtkThemeVariant', () => {
@@ -44,7 +44,7 @@ suite('gtk-theme-variant.setGtkThemeVariant', () => {
                              '-set', '_GTK_THEME_VARIANT', 'dark']))
             .verifiable();
 
-        await setGtkThemeVariant(GtkThemeVariant.Dark, processMock.object);
+        await setGtkThemeVariant('dark', processMock.object);
 
         processMock.verifyAll();
     });
@@ -68,7 +68,7 @@ suite('gtk-theme-variant.setGtkThemeVariant', () => {
                              '-set', '_GTK_THEME_VARIANT', 'light']))
             .verifiable();
 
-        await setGtkThemeVariant(GtkThemeVariant.Light, processMock.object);
+        await setGtkThemeVariant('light', processMock.object);
 
         processMock.verifyAll();
     });

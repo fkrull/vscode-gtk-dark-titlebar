@@ -1,17 +1,5 @@
 import defaultProcessOutput from './process-output';
 
-export enum GtkThemeVariant {
-    Light,
-    Dark,
-}
-
-function getVariantString(variant: GtkThemeVariant): string {
-    switch (variant) {
-        case GtkThemeVariant.Light: return 'light';
-        case GtkThemeVariant.Dark: return 'dark';
-    }
-}
-
 type ProcessOutput = typeof defaultProcessOutput;
 type ProcessID = number;
 type WindowID = string;
@@ -49,15 +37,15 @@ async function getProcessIDsForWindowIDs(wids: WindowID[], processOutput: Proces
 
 async function setThemeVariantOnWindow(
         windowID: WindowID,
-        variant: GtkThemeVariant,
+        variant: ThemeVariant,
         processOutput: ProcessOutput): Promise<void> {
     await processOutput(['xprop', '-id', windowID,
                          '-f', '_GTK_THEME_VARIANT', '8u',
-                         '-set', '_GTK_THEME_VARIANT', getVariantString(variant)]);
+                         '-set', '_GTK_THEME_VARIANT', variant]);
 }
 
 export async function setGtkThemeVariant(
-        variant: GtkThemeVariant,
+        variant: ThemeVariant,
         processOutput: ProcessOutput = defaultProcessOutput): Promise<void> {
     const editorPIDs = await getEditorPIDs(processOutput);
     const allWindows = await getProcessIDsForWindowIDs(await getWindowIDs(processOutput), processOutput);

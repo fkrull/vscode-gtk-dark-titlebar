@@ -1,0 +1,1 @@
+type ThemeVariant = 'light' | 'dark';
