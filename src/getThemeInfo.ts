@@ -2,13 +2,22 @@ import { Extension } from 'vscode';
 
 type UiTheme = 'vs' | 'vs-dark';
 
-interface ContributedTheme {
+interface ContributedThemeWithLabel {
     readonly label: string;
     readonly uiTheme: UiTheme;
 }
 
+interface ContributedThemeWithId {
+    readonly id: string;
+    readonly uiTheme: UiTheme;
+}
+
+type ContributedTheme = ContributedThemeWithLabel & ContributedThemeWithId;
+
 function isCompleteTheme(v: any): v is ContributedTheme {
-    return v != null && typeof(v.label) === 'string' && ['vs', 'vs-dark'].includes(v.uiTheme);
+    return v != null &&
+           (typeof(v.label) === 'string' || typeof(v.id) === 'string') &&
+           ['vs', 'vs-dark'].includes(v.uiTheme);
 }
 
 function uiThemeToVariant(uiTheme: UiTheme): Extension.ThemeVariant {
@@ -26,7 +35,8 @@ function* yieldThemeInfo(allExtensions: Array<Extension<any>>): IterableIterator
     for (const ext of allExtensions) {
         for (const theme of getThemeList(ext)) {
             if (isCompleteTheme(theme)) {
-                yield { name: theme.label, variant: uiThemeToVariant(theme.uiTheme) };
+                const name = theme.id !== undefined ? theme.id : theme.label;
+                yield { name, variant: uiThemeToVariant(theme.uiTheme) };
             }
         }
     }

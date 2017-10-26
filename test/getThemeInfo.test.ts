@@ -100,4 +100,24 @@ suite('getThemeInfo', () => {
         assert.deepEqual(themeInfo, []);
     });
 
+    test('should include themes with id but no label', () => {
+        const exts = [
+            ext([{ id: 'Visual Studio Light', uiTheme: 'vs' }]),
+        ];
+
+        const themeInfo = getThemeInfo(exts);
+
+        assert.deepEqual(themeInfo, [{ name: 'Visual Studio Light', variant: 'light' }]);
+    });
+
+    test('should prefer id if both id and label are specified', () => {
+        const exts = [
+            ext([{ id: 'Visual Studio Light', label: 'Light (Visual Studio)', uiTheme: 'vs' }]),
+        ];
+
+        const themeInfo = getThemeInfo(exts);
+
+        assert.deepEqual(themeInfo, [{ name: 'Visual Studio Light', variant: 'light' }]);
+    });
+
 });
