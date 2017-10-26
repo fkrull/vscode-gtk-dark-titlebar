@@ -1,19 +1,20 @@
 import { Extension } from 'vscode';
 
+type UiTheme = 'vs' | 'vs-dark';
+
 interface ContributedTheme {
     readonly label: string;
-    readonly uiTheme: 'vs' | 'vs-dark';
+    readonly uiTheme: UiTheme;
 }
 
 function isCompleteTheme(v: any): v is ContributedTheme {
     return v != null && typeof(v.label) === 'string' && ['vs', 'vs-dark'].includes(v.uiTheme);
 }
 
-function uiThemeToVariant(uiTheme: string): Extension.ThemeVariant {
+function uiThemeToVariant(uiTheme: UiTheme): Extension.ThemeVariant {
     switch (uiTheme) {
         case 'vs': return 'light';
         case 'vs-dark': return 'dark';
-        default: return 'light';
     }
 }
 
@@ -24,7 +25,9 @@ function getThemeList(ext: Extension<any>): any[] {
 function* yieldThemeInfo(allExtensions: Array<Extension<any>>): IterableIterator<Extension.ThemeInfo> {
     for (const ext of allExtensions) {
         for (const theme of getThemeList(ext)) {
-            yield { name: theme.label, variant: uiThemeToVariant(theme.uiTheme) };
+            if (isCompleteTheme(theme)) {
+                yield { name: theme.label, variant: uiThemeToVariant(theme.uiTheme) };
+            }
         }
     }
 }
