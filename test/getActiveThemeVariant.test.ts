@@ -47,4 +47,24 @@ suite('getActiveThemeVariant', () => {
         assert.equal(activeThemeVariant, 'dark');
     });
 
+    test('should return "light" if setting is "auto" and current theme is unknown', () => {
+        givenSetting('gtkTitleBar.mode', 'auto');
+        givenSetting('workbench.colorTheme', 'Tomorrow');
+        const themeInfo: Extension.ThemeInfo[] = [
+            { name: 'Monokai', variant: 'dark' },
+        ];
+
+        const activeThemeVariant = getActiveThemeVariant(configMock.object, themeInfo);
+
+        assert.equal(activeThemeVariant, 'light');
+    });
+
+    test('should return "light" if setting is an unsupported value', () => {
+        givenSetting('gtkTitleBar.mode', 'something else');
+
+        const activeThemeVariant = getActiveThemeVariant(configMock.object, []);
+
+        assert.equal(activeThemeVariant, 'light');
+    });
+
 });
