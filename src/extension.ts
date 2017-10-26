@@ -1,13 +1,17 @@
 import * as vscode from 'vscode';
 
-import { setGtkThemeVariant } from './gtk-theme-variant';
-import processOutput from './process-output';
+import getActiveThemeVariant from 'getActiveThemeVariant';
+import processOutput from './processOutput';
+import setGtkThemeVariant from './setGtkThemeVariant';
 
 function updateGtkThemeVariant(): Promise<void> {
-    return setGtkThemeVariant('dark')
-        .catch((error) => {
-            vscode.window.showErrorMessage(error.message);
-        });
+    const config = vscode.workspace.getConfiguration();
+    return setGtkThemeVariant(
+        getActiveThemeVariant(config),
+        processOutput,
+    ).catch((error) => {
+        vscode.window.showErrorMessage(error.message);
+    });
 }
 
 export function activate(context: vscode.ExtensionContext) {

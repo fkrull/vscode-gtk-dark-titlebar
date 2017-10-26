@@ -1,12 +1,11 @@
 import * as assert from 'assert';
 import { Mock, MockBehavior, Times } from 'typemoq';
 
-import { setGtkThemeVariant } from '../src/gtk-theme-variant';
-import processOutput from '../src/process-output';
+import setGtkThemeVariant from '../src/setGtkThemeVariant';
 
-suite('gtk-theme-variant.setGtkThemeVariant', () => {
+suite('setGtkThemeVariant', () => {
 
-    const processMock = Mock.ofType<typeof processOutput>(undefined, MockBehavior.Strict);
+    const processMock = Mock.ofType<Extension.ProcessOutput>(undefined, MockBehavior.Strict);
 
     setup(() => {
         processMock.reset();
