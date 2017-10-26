@@ -2,6 +2,7 @@ src/**
 test/**
 typings/**
 .vscode/**
+.vscode-test/**
 
 out/**/*.js.map
 out/test/**
