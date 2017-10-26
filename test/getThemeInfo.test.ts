@@ -92,12 +92,22 @@ suite('getThemeInfo', () => {
 
     test('should not include themes with invalid uiTheme', () => {
         const exts = [
-            ext([{ label: 'Monokai', uiTheme: 'vs-light' }]),
+            ext([{ label: 'Monokai', uiTheme: 'invalid' }]),
         ];
 
         const themeInfo = getThemeInfo(exts);
 
         assert.deepEqual(themeInfo, []);
+    });
+
+    test('should map "hc-black" to dark variant', () => {
+        const exts = [
+            ext([{ label: 'High Contrast', uiTheme: 'hc-black' }]),
+        ];
+
+        const themeInfo = getThemeInfo(exts);
+
+        assert.deepEqual(themeInfo, [{ name: 'High Contrast', variant: 'dark' }]);
     });
 
     test('should include themes with id but no label', () => {
