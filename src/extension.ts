@@ -5,9 +5,8 @@ import getThemeInfo from './getThemeInfo';
 import processOutput from './processOutput';
 import setGtkThemeVariant from './setGtkThemeVariant';
 
-function updateGtkThemeVariant(
-        config: vscode.WorkspaceConfiguration,
-        themeInfo: Extension.ThemeInfo[]): Promise<void> {
+function updateGtkThemeVariant(themeInfo: Extension.ThemeInfo[]): Promise<void> {
+    const config = vscode.workspace.getConfiguration();
     return setGtkThemeVariant(
         getActiveThemeVariant(config, themeInfo),
         processOutput,
@@ -17,11 +16,7 @@ function updateGtkThemeVariant(
 }
 
 export function activate(context: vscode.ExtensionContext) {
-    const config = vscode.workspace.getConfiguration();
     const themeInfo = getThemeInfo(vscode.extensions.all);
-
-    updateGtkThemeVariant(config, themeInfo);
-    vscode.workspace.onDidChangeConfiguration(() => {
-        updateGtkThemeVariant(config, themeInfo);
-    });
+    updateGtkThemeVariant(themeInfo);
+    vscode.workspace.onDidChangeConfiguration(updateGtkThemeVariant.bind(undefined, themeInfo));
 }
