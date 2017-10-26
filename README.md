@@ -14,7 +14,9 @@ there.
 
 ## Configuration
 The theme variant can be configured by setting the `gtkTitleBar.mode` setting
-to either `light` or `dark`.
+to either `light` or `dark`. Any changes take effect immediately. Note however
+that the setting will only take effect a few seconds after startup due to how
+VS Code delays extension loading.
 
 ## License
 See the accompanying `LICENSE` file.
