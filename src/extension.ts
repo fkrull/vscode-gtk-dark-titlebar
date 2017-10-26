@@ -1,13 +1,15 @@
 import * as vscode from 'vscode';
 
-import getActiveThemeVariant from 'getActiveThemeVariant';
+import getActiveThemeVariant from './getActiveThemeVariant';
+import getThemeInfo from './getThemeInfo';
 import processOutput from './processOutput';
 import setGtkThemeVariant from './setGtkThemeVariant';
 
-function updateGtkThemeVariant(): Promise<void> {
-    const config = vscode.workspace.getConfiguration();
+function updateGtkThemeVariant(
+        config: vscode.WorkspaceConfiguration,
+        themeInfo: Extension.ThemeInfo[]): Promise<void> {
     return setGtkThemeVariant(
-        getActiveThemeVariant(config),
+        getActiveThemeVariant(config, themeInfo),
         processOutput,
     ).catch((error) => {
         vscode.window.showErrorMessage(error.message);
@@ -15,10 +17,11 @@ function updateGtkThemeVariant(): Promise<void> {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-    updateGtkThemeVariant();
-    vscode.workspace.onDidChangeConfiguration(updateGtkThemeVariant);
-}
+    const config = vscode.workspace.getConfiguration();
+    const themeInfo = getThemeInfo(vscode.extensions.all);
 
-export function deactivate() {
-    console.log('deactivate');
+    updateGtkThemeVariant(config, themeInfo);
+    vscode.workspace.onDidChangeConfiguration(() => {
+        updateGtkThemeVariant(config, themeInfo);
+    });
 }
