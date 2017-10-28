@@ -8,6 +8,15 @@
     "author": {
         "name": "Felix Krull"
     },
+    "keywords": [
+        "titlebar",
+        "title bar",
+        "gnome shell",
+        "gnome-shell",
+        "gtk",
+        "gnome",
+        "dark titlebar"
+    ],
     "homepage": "https://github.com/fkrull/vscode-gtk-dark-titlebar",
     "bugs": "https://github.com/fkrull/vscode-gtk-dark-titlebar/issues",
     "repository": {
