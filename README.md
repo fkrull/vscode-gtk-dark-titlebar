@@ -1,5 +1,7 @@
 # Match the GNOME title bar to your VS Code theme
 
+![GTK Dark Title Bar](images/screenshot.png)
+
 This extension for Visual Studio Code can set the
 [dark GTK theme variant](https://developer.gnome.org/gtk3/3.0/GtkSettings.html#GtkSettings--gtk-application-prefer-dark-theme)
 for your VS Code windows. When using a dark editor theme, this leads to a more
