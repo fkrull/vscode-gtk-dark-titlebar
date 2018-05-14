@@ -1,25 +1,19 @@
-TAG := build-xprop
-XPROP_GIT := http://anongit.freedesktop.org/git/xorg/app/xprop.git/
-XPROP_REF := xprop-1.2.3
+IMAGE=debian:8-slim
 
-all: npm-compile bin/xprop
+all: npm-compile bin/xprop-arm bin/xprop-arm64 bin/xprop-ia32 bin/xprop-x64
 
-image:
-	docker build -t $(TAG) build-xprop
+npm-compile:
+	npm run compile
 
 clean:
-	-docker image rm $(TAG)
 	rm -rf bin out
 
 bin:
 	mkdir -p bin
 
-bin/xprop: image bin
-	docker run --rm \
-		-e GIT=$(XPROP_GIT) \
-		-e REF=$(XPROP_REF) \
+bin/xprop-%: bin
+	docker run --rm -i \
 		-v $(PWD)/bin:/out \
-		build-xprop
-
-npm-compile:
-	npm run compile
+		-v $(PWD)/extract-xprop.sh:/extract-xprop.sh \
+		$(IMAGE) \
+		/bin/sh /extract-xprop.sh $*
