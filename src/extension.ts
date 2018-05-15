@@ -11,7 +11,7 @@ async function updateGtkThemeVariant(
     themeInfo: Extension.ThemeInfo[],
 ): Promise<void> {
     const config = vscode.workspace.getConfiguration();
-    const xprop = await getXpropCommand(extensionPath, config);
+    const xprop = await getXpropCommand(extensionPath);
     try {
         await setGtkThemeVariant(
             getActiveThemeVariant(config, themeInfo),

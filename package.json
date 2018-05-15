@@ -1,73 +1,77 @@
 {
-    "name": "gtk-dark-titlebar",
-    "version": "1.1.0",
-    "publisher": "fkrull",
-    "displayName": "GTK Dark Title Bar",
-    "description": "Match the GNOME title bar colour to your VS Code theme",
-    "license": "BSD-2-Clause",
-    "author": {
-        "name": "Felix Krull"
-    },
-    "keywords": [
-        "titlebar",
-        "gnome shell",
-        "gnome-shell",
-        "gnome",
-        "dark titlebar"
-    ],
-    "homepage": "https://github.com/fkrull/vscode-gtk-dark-titlebar",
-    "bugs": "https://github.com/fkrull/vscode-gtk-dark-titlebar/issues",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/fkrull/vscode-gtk-dark-titlebar.git"
-    },
-    "engines": {
-        "vscode": "^1.16.0"
-    },
-    "categories": [
-        "Other"
-    ],
-    "icon": "images/icon.png",
-    "galleryBanner": {
-        "color": "#2C3133",
-        "theme": "dark"
-    },
-    "main": "./out/src/extension",
-    "activationEvents": [
-        "*"
-    ],
-    "contributes": {
-        "configuration": {
-            "title": "GTK title bar settings",
-            "properties": {
-                "gtkTitleBar.mode": {
-                    "type": "string",
-                    "enum": [
-                        "auto",
-                        "light",
-                        "dark"
-                    ],
-                    "default": "auto",
-                    "description": "Specifies the theme for the GTK title bar."
-                }
-            }
+  "name": "gtk-dark-titlebar",
+  "version": "1.1.0",
+  "publisher": "fkrull",
+  "displayName": "GTK Dark Title Bar",
+  "description": "Match the GNOME title bar colour to your VS Code theme",
+  "license": "BSD-2-Clause",
+  "author": {
+    "name": "Felix Krull"
+  },
+  "keywords": [
+    "titlebar",
+    "gnome shell",
+    "gnome-shell",
+    "gnome",
+    "dark titlebar"
+  ],
+  "homepage": "https://github.com/fkrull/vscode-gtk-dark-titlebar",
+  "bugs": "https://github.com/fkrull/vscode-gtk-dark-titlebar/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fkrull/vscode-gtk-dark-titlebar.git"
+  },
+  "engines": {
+    "vscode": "^1.16.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#2C3133",
+    "theme": "dark"
+  },
+  "main": "./out/src/extension",
+  "activationEvents": [
+    "*"
+  ],
+  "contributes": {
+    "configuration": {
+      "title": "GTK title bar settings",
+      "properties": {
+        "gtkTitleBar.mode": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "light",
+            "dark"
+          ],
+          "default": "auto",
+          "description": "Specifies the theme for the GTK title bar."
         }
-    },
-    "scripts": {
-        "vscode:prepublish": "make",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && mocha -u tdd out/test"
-    },
-    "devDependencies": {
-        "@types/mocha": "^2.2.42",
-        "@types/node": "^7.0.43",
-        "mocha": "^3.5.0",
-        "tslint": "^5.7.0",
-        "typemoq": "^2.0.1",
-        "typescript": "^2.5.2",
-        "vsce": "^1.31.1",
-        "vscode": "^1.1.5"
+      }
     }
+  },
+  "scripts": {
+    "vscode:prepublish": "make",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "npm run compile && mocha -u tdd out/test"
+  },
+  "dependencies": {
+    "fs-extra": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^5.0.2",
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^7.0.43",
+    "mocha": "^3.5.0",
+    "tslint": "^5.7.0",
+    "typemoq": "^2.0.1",
+    "typescript": "^2.5.2",
+    "vsce": "^1.31.1",
+    "vscode": "^1.1.5"
+  }
 }
