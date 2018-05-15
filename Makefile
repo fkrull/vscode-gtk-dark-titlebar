@@ -1,9 +1,15 @@
 IMAGE=debian:8-slim
 
-all: npm-compile bin/xprop-arm bin/xprop-arm64 bin/xprop-ia32 bin/xprop-x64
+all: npm-compile xprop-binaries
 
 npm-compile:
 	npm run compile
+
+xprop-binaries: \
+	bin/xprop-linux-arm \
+	bin/xprop-linux-arm64 \
+	bin/xprop-linux-ia32 \
+	bin/xprop-linux-x64
 
 clean:
 	rm -rf bin out
@@ -11,7 +17,7 @@ clean:
 bin:
 	mkdir -p bin
 
-bin/xprop-%: bin
+bin/xprop-linux-%: bin
 	docker run --rm -i \
 		-v $(PWD)/bin:/out \
 		-v $(PWD)/extract-xprop.sh:/extract-xprop.sh \

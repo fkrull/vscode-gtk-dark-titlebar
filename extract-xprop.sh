@@ -2,6 +2,7 @@
 set -eu
 
 arch=$1
+os=linux
 package=x11-utils
 binary=usr/bin/xprop
 work=/work
@@ -21,11 +22,11 @@ esac
 mkdir -p $work $out
 cd $work
 
-echo Getting xprop-${arch} ...
+echo Getting xprop-${os}-${arch} ...
 
 dpkg --add-architecture $debarch
 apt-get update
 apt-get download ${package}:${debarch}
 dpkg-deb -x ${package}_*_${debarch}.deb .
 chmod 0755 $binary
-cp $binary $out/xprop-${arch}
+cp $binary $out/xprop-${os}-${arch}
