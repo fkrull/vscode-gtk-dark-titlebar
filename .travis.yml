@@ -3,6 +3,10 @@ sudo: required
 services:
   - docker
 
+env:
+  global:
+    - secure: "I9tYPHDIgap5aSQj1QL9HKbARmwAoP7mySo5prasKjkqfBbIhKDea9MUYVMWdqt9RgK+QuhS711CCxD3MtllBhLJS5xy7rpXA56vYQOd/nWCuTLO/uwn8CFx8rLQHzAqZrXoiYGNQRWCEOAIqrKVnEWDB1+cAJQ1qEUaE7ffPfDz6d1MqTRFCS52iDWyuo07/lkY4+2Lflj7BHE4Ca5UWhU7Rgn53lGlhCkEr0oGh0QDbdxXRtOOQzvODrPywoEiZ+rKxJ28XL75jYvqcYl6VhR6SDofbGYyVHDI4v8JuMHZPdd0C59fOtJvUE6Ik/cfrJ5DKM8HWbIL2lDd6bHz2ZCSyPkIJx85d5zPITL2EDKfJ+LrEJOuuukh5d+99lJWt2BODZqAb4BZTSjrPfto5r/IaegQzWmaSEs74Z0SeJbSTfDjJ7kbpAWN6mDPpIdZnB+t5DiXy2MtTARak0n5hzK3JK+I+quF388EwlrvPUyyHRxeVz9/zWIYOTgMG0yXRWcn8pmRHESUq12+DD4crkECTiKHAv8DdG3HiBfSlUqJoQf+TSRFnW0hgPLy9UkP1imNoJhQHV4tebmYxJWYxF7R7bQJTORUVQJ0I3ZqRir4EXZcKr/isTI40dd2mT89n++HgQEJxIZMGYikjL0Yoa6uQhLLvzfvgx5nM6eqJlI="
+
 language: node_js
 node_js: lts/*
 
@@ -10,3 +14,12 @@ install: npm install
 script:
   - npm test
   - node_modules/.bin/vsce package
+
+deploy:
+  - provider: script
+    script: vsce publish -p $VS_TOKEN
+    skip_cleanup: true
+    on:
+      repo: fkrull/vscode-gtk-dark-titlebar
+      tags: true
+      condition: $TRAVIS_TAG =~ ^release-
