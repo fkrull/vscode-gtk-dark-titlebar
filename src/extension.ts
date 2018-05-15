@@ -26,5 +26,5 @@ async function updateGtkThemeVariant(
 export function activate(context: vscode.ExtensionContext) {
     const themeInfo = getThemeInfo(vscode.extensions.all);
     updateGtkThemeVariant(context.extensionPath, themeInfo);
-    vscode.workspace.onDidChangeConfiguration(updateGtkThemeVariant.bind(undefined, themeInfo));
+    vscode.workspace.onDidChangeConfiguration(updateGtkThemeVariant.bind(undefined, context.extensionPath, themeInfo));
 }
