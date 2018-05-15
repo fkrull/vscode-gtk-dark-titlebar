@@ -9,6 +9,7 @@ function updateGtkThemeVariant(themeInfo: Extension.ThemeInfo[]): Promise<void> 
     const config = vscode.workspace.getConfiguration();
     return setGtkThemeVariant(
         getActiveThemeVariant(config, themeInfo),
+        'xprop',
         processOutput,
     ).catch((error) => {
         vscode.window.showErrorMessage(error.message);
