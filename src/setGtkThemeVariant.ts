@@ -13,6 +13,7 @@ function match(text: string, term: string | RegExp): string[] {
 
 class SetGtkThemeVariant {
     constructor(
+        private readonly xprop: string,
         private readonly processOutput: Extension.ProcessOutput,
     ) { }
 
@@ -32,14 +33,14 @@ class SetGtkThemeVariant {
     }
 
     private async getWindowIDs(): Promise<WindowID[]> {
-        const output = await this.processOutput(['xprop', '-root', '_NET_CLIENT_LIST']);
+        const output = await this.processOutput([this.xprop, '-root', '_NET_CLIENT_LIST']);
         return match(output, /0x[\da-fA-F]+/g);
     }
 
     private async getProcessIDsForWindowIDs(wids: WindowID[]): Promise<PIDtoWID[]> {
         return await Promise.all(
             wids.map(async (wid) => {
-                const output = await this.processOutput(['xprop', '-id', wid, '_NET_WM_PID']);
+                const output = await this.processOutput([this.xprop, '-id', wid, '_NET_WM_PID']);
                 const pidString = match(output, /\d+/)[0] || '0';
                 return { wid, pid: parseInt(pidString, 10) };
             }),
@@ -49,7 +50,7 @@ class SetGtkThemeVariant {
     private async setThemeVariantOnWindow(
             windowID: WindowID,
             variant: Extension.ThemeVariant): Promise<void> {
-        await this.processOutput(['xprop', '-id', windowID,
+        await this.processOutput([this.xprop, '-id', windowID,
                                   '-f', '_GTK_THEME_VARIANT', '8u',
                                   '-set', '_GTK_THEME_VARIANT', variant]);
     }
@@ -57,6 +58,7 @@ class SetGtkThemeVariant {
 
 export default function setGtkThemeVariant(
         variant: Extension.ThemeVariant,
+        xpropCommand: string,
         processOutput: Extension.ProcessOutput): Promise<void> {
-    return new SetGtkThemeVariant(processOutput).setGtkThemeVariant(variant);
+    return new SetGtkThemeVariant(xpropCommand, processOutput).setGtkThemeVariant(variant);
 }

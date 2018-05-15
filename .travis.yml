@@ -1,0 +1,12 @@
+dist: trusty
+sudo: required
+services:
+  - docker
+
+language: node_js
+node_js: lts/*
+
+install: npm install
+script:
+  - npm test
+  - node_modules/.bin/vsce package

@@ -1,5 +1,6 @@
 src/**
 test/**
+build-xprop/**
 typings/**
 .vscode/**
 .vscode-test/**
@@ -11,3 +12,4 @@ out/test/**
 tsconfig.json
 tslint.json
 yarn.lock
+Makefile
