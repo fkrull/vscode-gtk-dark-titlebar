@@ -1,4 +1,5 @@
 IMAGE=debian:8-slim
+curdir=$(shell pwd)
 
 all: npm-compile xprop-binaries
 
@@ -19,7 +20,7 @@ bin:
 
 bin/xprop-linux-%: bin
 	docker run --rm -i \
-		-v $(PWD)/bin:/out \
-		-v $(PWD)/extract-xprop.sh:/extract-xprop.sh \
+		-v $(curdir)/bin:/out \
+		-v $(curdir)/extract-xprop.sh:/extract-xprop.sh \
 		$(IMAGE) \
 		/bin/sh /extract-xprop.sh $*
