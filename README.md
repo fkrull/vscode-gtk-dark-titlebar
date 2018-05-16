@@ -1,5 +1,7 @@
 # Match the GNOME title bar to your VS Code theme
 
+[![Build Status](https://travis-ci.org/fkrull/vscode-gtk-dark-titlebar.svg?branch=master)](https://travis-ci.org/fkrull/vscode-gtk-dark-titlebar)
+
 ![GTK Dark Title Bar](images/screenshot.png)
 
 This extension for Visual Studio Code can set the
