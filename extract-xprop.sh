@@ -25,7 +25,7 @@ cd $work
 echo Getting xprop-${os}-${arch} ...
 
 dpkg --add-architecture $debarch
-apt-get update
+apt-get update || true
 apt-get download ${package}:${debarch}
 dpkg-deb -x ${package}_*_${debarch}.deb .
 chmod 0755 $binary
