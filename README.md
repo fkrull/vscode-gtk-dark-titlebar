@@ -31,7 +31,7 @@ editor theme as described above. This is the default.
 
 Any changes to either this setting or when changing the editor theme take effect
 immediately. Note however that when launching VS Code or opening a new window,
-it will take a few settings for the title bar setting to be applied. This is due
+it will take a few seconds for the title bar setting to be applied. This is due
 to VS Code's delayed extension loading.
 
 ## License
