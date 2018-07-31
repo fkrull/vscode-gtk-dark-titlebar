@@ -11,6 +11,8 @@ attractive UI on systems that select the title bar colour based on the
 application GTK theme, most commonly GNOME 3. For best results, you should also
 turn off the (unthemable) menu bar using the `window.menuBarVisibility` setting.
 
+**This extension does not work on Windows or Mac.**
+
 By default, whether to use the light or dark theme variant is determined
 automatically from the editor theme. When changing the editor theme, the title
 bar is also changed to match the theme (light or dark). The information on
