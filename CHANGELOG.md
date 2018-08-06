@@ -1,5 +1,9 @@
 # Change Log for GTK Dark Title Bar
 
+## [1.2.1] - 2018-08-06
+- Add note about lack of Windows and Mac support to readme/marketplace
+  description because it keeps coming up.
+
 ## [1.2.0] - 2018-05-16
 - Bundle xprop binary with the extension. This is useful for
   [VS Code packaged as Flatpak][vscode-flatpak] which doesn't have the xprop
