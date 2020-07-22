@@ -36,6 +36,9 @@
   "activationEvents": [
     "*"
   ],
+  "extensionKind": [
+    "ui"
+  ],
   "contributes": {
     "configuration": {
       "title": "GTK title bar settings",

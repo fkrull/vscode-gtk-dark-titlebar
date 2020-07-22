@@ -1,5 +1,8 @@
 # Change Log for GTK Dark Title Bar
 
+## [1.2.2] - 2020-07-22
+- Set extension to run as UI extension.
+
 ## [1.2.1] - 2018-08-06
 - Add note about lack of Windows and Mac support to readme/marketplace
   description because it keeps coming up.
