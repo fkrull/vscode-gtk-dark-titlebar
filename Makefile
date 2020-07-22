@@ -1,4 +1,4 @@
-IMAGE=debian:8-slim
+IMAGE=debian:9-slim
 curdir=$(shell pwd)
 
 all: npm-compile xprop-binaries
