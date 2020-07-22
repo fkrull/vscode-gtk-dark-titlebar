@@ -1,6 +1,6 @@
 {
   "name": "gtk-dark-titlebar",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "publisher": "fkrull",
   "displayName": "GTK Dark Title Bar",
   "description": "Match the GNOME title bar colour to your VS Code theme",
