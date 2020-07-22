@@ -61,17 +61,17 @@
     "test": "npm run compile && mocha -u tdd out/test"
   },
   "dependencies": {
-    "fs-extra": "^4.0.2"
+    "fs-extra": "^9.0.1"
   },
   "devDependencies": {
-    "@types/fs-extra": "^5.0.2",
-    "@types/mocha": "^2.2.42",
-    "@types/node": "^7.0.43",
-    "mocha": "^5.1.1",
-    "tslint": "^5.7.0",
-    "typemoq": "^2.0.1",
-    "typescript": "^2.5.2",
-    "vsce": "^1.40.0",
-    "vscode": "^1.1.17"
+    "@types/fs-extra": "^9.0.1",
+    "@types/mocha": "^8.0.0",
+    "@types/node": "^14.0.24",
+    "mocha": "^8.0.1",
+    "tslint": "^6.1.2",
+    "typemoq": "^2.1.0",
+    "typescript": "^3.9.7",
+    "vsce": "^1.77.0",
+    "vscode": "^1.1.37"
   }
 }
