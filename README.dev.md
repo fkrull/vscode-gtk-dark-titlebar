@@ -15,7 +15,7 @@ set in `Makefile`, for compatibility reasons it should be an older image. Run
 `make xprop-binaries` to extract the binaries for local use.
 
 ## CI
-CI is Travis, see `.travis.yml`.
+https://travis-ci.org/fkrull/vscode-gtk-dark-titlebar
 
 The VS marketplace access token is configured in Travis. It may be expired; in
 that case, generate a new one as per https://code.visualstudio.com/api/working-with-extensions/publishing-extension#get-a-personal-access-token.
