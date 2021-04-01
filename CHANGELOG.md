@@ -1,5 +1,8 @@
 # Change Log for GTK Dark Title Bar
 
+## [1.2.3] - 2021-04-01
+- Update various dependencies.
+
 ## [1.2.2] - 2020-07-22
 - Set extension to run as UI extension.
 
