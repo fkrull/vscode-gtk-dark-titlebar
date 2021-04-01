@@ -4,7 +4,14 @@ services:
 language: node_js
 node_js: lts/*
 
-install: npm install
+install:
+  - npm install
+  - |
+    if [ $TRAVIS_OS_NAME == "linux" ]; then
+      export DISPLAY=':99.0'
+      /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+    fi
+
 script:
   - npm test
   - node_modules/.bin/vsce package
