@@ -34,7 +34,7 @@ function getThemeList(ext: Extension<any>): any[] {
     return (ext.packageJSON && ext.packageJSON.contributes && ext.packageJSON.contributes.themes) || [];
 }
 
-function* yieldThemeInfo(allExtensions: Array<Extension<any>>): IterableIterator<Extension.ThemeInfo> {
+function* yieldThemeInfo(allExtensions: readonly Extension<any>[]): IterableIterator<Extension.ThemeInfo> {
     for (const ext of allExtensions) {
         for (const theme of getThemeList(ext)) {
             if (isCompleteTheme(theme)) {
@@ -45,6 +45,6 @@ function* yieldThemeInfo(allExtensions: Array<Extension<any>>): IterableIterator
     }
 }
 
-export default function getThemeInfo(allExtensions: Array<Extension<any>>): Extension.ThemeInfo[] {
+export default function getThemeInfo(allExtensions: readonly Extension<any>[]): Extension.ThemeInfo[] {
     return Array.from(yieldThemeInfo(allExtensions));
 }

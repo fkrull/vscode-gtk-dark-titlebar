@@ -1,6 +1,5 @@
 import * as assert from 'assert';
-import { Mock } from 'typemoq';
-import { Extension } from 'vscode';
+import { Extension, ExtensionKind, Uri } from 'vscode';
 
 import getThemeInfo from '../src/getThemeInfo';
 
@@ -11,6 +10,8 @@ function ext(themes: any): Extension<null> {
 function extWithPkgJson(packageJSON: any): Extension<null> {
     return {
         id: 'some.extension',
+        extensionUri: Uri.parse('file:///'),
+        extensionKind: ExtensionKind.UI,
         extensionPath: '/',
         isActive: false,
         exports: null,
@@ -24,7 +25,7 @@ suite('getThemeInfo', () => {
     test('should return empty list for no extensions', () => {
         const themeInfo = getThemeInfo([]);
 
-        assert.deepEqual(themeInfo, []);
+        assert.deepStrictEqual(themeInfo, []);
     });
 
     test('should return theme info from extensions', () => {
@@ -47,7 +48,7 @@ suite('getThemeInfo', () => {
 
         const themeInfo = getThemeInfo(exts);
 
-        assert.deepEqual(themeInfo, [
+        assert.deepStrictEqual(themeInfo, [
             { name: 'Monokai', variant: 'dark' },
             { name: 'Tomorrow', variant: 'light' },
             { name: 'Solarized Dark', variant: 'dark' },
@@ -66,7 +67,7 @@ suite('getThemeInfo', () => {
 
         const themeInfo = getThemeInfo(exts);
 
-        assert.deepEqual(themeInfo, []);
+        assert.deepStrictEqual(themeInfo, []);
     });
 
     test('should not include themes without label', () => {
@@ -77,7 +78,7 @@ suite('getThemeInfo', () => {
 
         const themeInfo = getThemeInfo(exts);
 
-        assert.deepEqual(themeInfo, [{ name: 'Monokai', variant: 'dark' }]);
+        assert.deepStrictEqual(themeInfo, [{ name: 'Monokai', variant: 'dark' }]);
     });
 
     test('should not include themes without uiTheme', () => {
@@ -87,7 +88,7 @@ suite('getThemeInfo', () => {
 
         const themeInfo = getThemeInfo(exts);
 
-        assert.deepEqual(themeInfo, []);
+        assert.deepStrictEqual(themeInfo, []);
     });
 
     test('should not include themes with invalid uiTheme', () => {
@@ -97,7 +98,7 @@ suite('getThemeInfo', () => {
 
         const themeInfo = getThemeInfo(exts);
 
-        assert.deepEqual(themeInfo, []);
+        assert.deepStrictEqual(themeInfo, []);
     });
 
     test('should map "hc-black" to dark variant', () => {
@@ -107,7 +108,7 @@ suite('getThemeInfo', () => {
 
         const themeInfo = getThemeInfo(exts);
 
-        assert.deepEqual(themeInfo, [{ name: 'High Contrast', variant: 'dark' }]);
+        assert.deepStrictEqual(themeInfo, [{ name: 'High Contrast', variant: 'dark' }]);
     });
 
     test('should include themes with id but no label', () => {
@@ -117,7 +118,7 @@ suite('getThemeInfo', () => {
 
         const themeInfo = getThemeInfo(exts);
 
-        assert.deepEqual(themeInfo, [{ name: 'Visual Studio Light', variant: 'light' }]);
+        assert.deepStrictEqual(themeInfo, [{ name: 'Visual Studio Light', variant: 'light' }]);
     });
 
     test('should prefer id if both id and label are specified', () => {
@@ -127,7 +128,7 @@ suite('getThemeInfo', () => {
 
         const themeInfo = getThemeInfo(exts);
 
-        assert.deepEqual(themeInfo, [{ name: 'Visual Studio Light', variant: 'light' }]);
+        assert.deepStrictEqual(themeInfo, [{ name: 'Visual Studio Light', variant: 'light' }]);
     });
 
 });

@@ -1,5 +1,4 @@
-import * as assert from 'assert';
-import { Mock, MockBehavior, Times } from 'typemoq';
+import { Mock, MockBehavior } from 'typemoq';
 
 import setGtkThemeVariant from '../src/setGtkThemeVariant';
 

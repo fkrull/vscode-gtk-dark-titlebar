@@ -2,7 +2,6 @@ import * as assert from 'assert';
 import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
-import { WorkspaceConfiguration } from 'vscode';
 
 import getXpropCommand from '../src/getXpropCommand';
 
@@ -27,7 +26,7 @@ suite('getXpropCommand', () => {
 
         const result = await getXpropCommand(tempDir);
 
-        assert.equal(result, binary);
+        assert.strictEqual(result, binary);
     });
 
     test('should return "xprop" if bundled command doesn\'t exist', async () => {
@@ -36,13 +35,13 @@ suite('getXpropCommand', () => {
 
         const result = await getXpropCommand(tempDir);
 
-        assert.equal(result, 'xprop');
+        assert.strictEqual(result, 'xprop');
     });
 
     test('should return "xprop" if "bin" directory doesn\'t exist', async () => {
         const result = await getXpropCommand(tempDir);
 
-        assert.equal(result, 'xprop');
+        assert.strictEqual(result, 'xprop');
     });
 
 });

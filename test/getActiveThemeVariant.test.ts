@@ -23,7 +23,7 @@ suite('getActiveThemeVariant', () => {
 
         const activeThemeVariant = getActiveThemeVariant(configMock.object, []);
 
-        assert.equal(activeThemeVariant, 'light');
+        assert.strictEqual(activeThemeVariant, 'light');
     });
 
     test('should return "dark" if setting is "dark"', () => {
@@ -31,7 +31,7 @@ suite('getActiveThemeVariant', () => {
 
         const activeThemeVariant = getActiveThemeVariant(configMock.object, []);
 
-        assert.equal(activeThemeVariant, 'dark');
+        assert.strictEqual(activeThemeVariant, 'dark');
     });
 
     test('should return variant from current theme if setting is "auto"', () => {
@@ -44,7 +44,7 @@ suite('getActiveThemeVariant', () => {
 
         const activeThemeVariant = getActiveThemeVariant(configMock.object, themeInfo);
 
-        assert.equal(activeThemeVariant, 'dark');
+        assert.strictEqual(activeThemeVariant, 'dark');
     });
 
     test('should return "light" if setting is "auto" and current theme is unknown', () => {
@@ -56,7 +56,7 @@ suite('getActiveThemeVariant', () => {
 
         const activeThemeVariant = getActiveThemeVariant(configMock.object, themeInfo);
 
-        assert.equal(activeThemeVariant, 'light');
+        assert.strictEqual(activeThemeVariant, 'light');
     });
 
     test('should return "light" if setting is an unsupported value', () => {
@@ -64,7 +64,7 @@ suite('getActiveThemeVariant', () => {
 
         const activeThemeVariant = getActiveThemeVariant(configMock.object, []);
 
-        assert.equal(activeThemeVariant, 'light');
+        assert.strictEqual(activeThemeVariant, 'light');
     });
 
 });
