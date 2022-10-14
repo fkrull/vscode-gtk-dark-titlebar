@@ -1,0 +1,58 @@
+name: Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [ published ]
+
+jobs:
+  test-and-package:
+    runs-on: ubuntu-latest
+    outputs:
+      vsixPath: ${{ steps.package.outputs.vsixPath }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: npm
+      - name: install dependencies
+        run: npm ci
+      - name: run tests
+        run: xvfb-run --auto-servernum npm test
+      - name: build package
+        id: package
+        uses: HaaLeo/publish-vscode-extension@v1
+        with:
+          pat: stub
+          dryRun: true
+      - uses: actions/upload-artifact@v3
+        with:
+          name: package
+          path: ${{ steps.package.outputs.vsixPath }}
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: [ test ]
+    #if: github.event_name == 'release'
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: package
+      - name: publish to Open VSX Registry
+        uses: HaaLeo/publish-vscode-extension@v1
+        id: publishToOpenVSX
+        with:
+          dryRun: true
+          pat: ${{ secrets.OPEN_VSX_TOKEN }}
+          extensionFile: ${{ needs.test.outputs.vsixPath }}
+      - name: publish to Visual Studio Marketplace
+        uses: HaaLeo/publish-vscode-extension@v1
+        with:
+          dryRun: true
+          pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+          registryUrl: https://marketplace.visualstudio.com
+          extensionFile: ${{ needs.test.outputs.vsixPath }}
