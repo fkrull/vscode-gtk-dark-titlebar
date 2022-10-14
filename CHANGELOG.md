@@ -1,5 +1,10 @@
 # Change Log for GTK Dark Title Bar
 
+## [1.3.0] - 2022-10-14
+- Update various dependencies.
+- Bump minimum VSCode version.
+- Also publish to open-vsx.org.
+
 ## [1.2.3] - 2021-04-01
 - Update various dependencies.
 

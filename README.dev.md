@@ -17,10 +17,7 @@ The bundled xprop binaries are extracted from Debian packages. The accompanying
 installed.
 
 ## CI
-https://travis-ci.org/fkrull/vscode-gtk-dark-titlebar
-
-The VS marketplace access token is configured in Travis. It may be expired; in
-that case, generate a new one as per https://code.visualstudio.com/api/working-with-extensions/publishing-extension#get-a-personal-access-token.
+https://code.visualstudio.com/api/working-with-extensions/publishing-extension#get-a-personal-access-token.
 READ INSTRUCTIONS CAREFULLY, there's some stupid pitfalls.
 
 ## Releasing
@@ -28,5 +25,5 @@ Releases are published via CI. Release steps:
 
 * add or extend changelog entry in `CHANGELOG.md`
 * bump version in `package.json` to match the changelog entry version
-* (commit and push main to see if it builds)
-* tag with `release-X.Y.Z` and push tag
+* commit and push main
+* create a Github release with version tag
