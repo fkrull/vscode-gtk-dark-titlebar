@@ -15,5 +15,7 @@ jobs:
         with:
           node-version: 12.x
           cache: npm
+      #- name: install xvfb
+      #  run: sudo apt-get install -y xvfb
       - run: npm ci
-      - run: npm test
+      - run: xvfb-run --auto-servernum npm test
