@@ -36,7 +36,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    needs: [ test ]
+    needs: [ test-and-package ]
     #if: github.event_name == 'release'
     steps:
       - uses: actions/download-artifact@v3
@@ -48,11 +48,11 @@ jobs:
         with:
           dryRun: true
           pat: ${{ secrets.OPEN_VSX_TOKEN }}
-          extensionFile: ${{ needs.test.outputs.vsixPath }}
+          extensionFile: ${{ needs.test-and-package.outputs.vsixPath }}
       - name: publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
         with:
           dryRun: true
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
-          extensionFile: ${{ needs.test.outputs.vsixPath }}
+          extensionFile: ${{ needs.test-and-package.outputs.vsixPath }}
