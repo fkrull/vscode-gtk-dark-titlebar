@@ -1,6 +1,5 @@
-import * as fs from 'fs-extra';
+import * as fs from 'fs';
 import * as path from 'path';
-import { WorkspaceConfiguration } from 'vscode';
 
 const Default: string = 'xprop';
 
@@ -13,7 +12,7 @@ export default async function getXpropCommand(
 
 async function executable(filePath: string): Promise<boolean> {
     try {
-        await fs.access(filePath, fs.constants.X_OK);
+        await fs.promises.access(filePath, fs.constants.X_OK);
         return true;
     } catch {
         return false;

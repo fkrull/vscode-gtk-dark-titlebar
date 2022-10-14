@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import * as fs from 'fs-extra';
+import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 
@@ -10,19 +10,19 @@ suite('getXpropCommand', () => {
     const tempDir: string = path.join(os.tmpdir(), `gtk-dark-titlebar-${Math.random()}`);
 
     setup(async () => {
-        await fs.mkdirs(tempDir);
+        await fs.promises.mkdir(tempDir, { recursive: true });
     });
 
     teardown(async () => {
-        await fs.remove(tempDir);
+        await fs.promises.rm(tempDir, { recursive: true });
     });
 
     test('should return path to bundled command if appropriate bundled command exists', async () => {
         const binDir = path.join(tempDir, 'bin');
         const binary = path.join(binDir, `xprop-${process.platform}-${process.arch}`);
-        await fs.mkdirs(binDir);
-        await fs.writeFile(binary, 'binary');
-        await fs.chmod(binary, 0o755);
+        await fs.promises.mkdir(binDir, { recursive: true });
+        await fs.promises.writeFile(binary, 'binary');
+        await fs.promises.chmod(binary, 0o755);
 
         const result = await getXpropCommand(tempDir);
 
@@ -31,7 +31,7 @@ suite('getXpropCommand', () => {
 
     test('should return "xprop" if bundled command doesn\'t exist', async () => {
         const binDir = path.join(tempDir, 'bin');
-        await fs.mkdirs(binDir);
+        await fs.promises.mkdir(binDir, { recursive: true });
 
         const result = await getXpropCommand(tempDir);
 
@@ -43,5 +43,4 @@ suite('getXpropCommand', () => {
 
         assert.strictEqual(result, 'xprop');
     });
-
 });

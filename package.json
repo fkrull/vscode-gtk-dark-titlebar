@@ -63,11 +63,7 @@
     "pretest": "npm run compile",
     "test": "node ./out/test/runTest.js"
   },
-  "dependencies": {
-    "fs-extra": "^10.1.0"
-  },
   "devDependencies": {
-    "@types/fs-extra": "^9.0.9",
     "@types/mocha": "^10.0.0",
     "@types/node": "^18.8.5",
     "@types/vscode": "^1.32.0",
