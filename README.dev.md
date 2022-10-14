@@ -17,8 +17,10 @@ The bundled xprop binaries are extracted from Debian packages. The accompanying
 installed.
 
 ## CI
-https://code.visualstudio.com/api/working-with-extensions/publishing-extension#get-a-personal-access-token.
-READ INSTRUCTIONS CAREFULLY, there's some stupid pitfalls.
+Access tokens for open-vsx.org and the VS Marketplace are stored in the Github
+secrets. They may be expired and need to be renewed:
+* for open-vsx.org: https://github.com/eclipse/openvsx/wiki/Publishing-Extensions#3-create-an-access-token
+* for VS Marketplace: https://code.visualstudio.com/api/working-with-extensions/publishing-extension#get-a-personal-access-token
 
 ## Releasing
 Releases are published via CI. Release steps:
