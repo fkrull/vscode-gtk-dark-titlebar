@@ -1,6 +1,6 @@
 import { spawn } from 'child_process';
 
-export default function(args: string[]): Promise<string> {
+export default function (args: string[]): Promise<string> {
     const stdoutChunks: string[] = [];
     const stderrChunks: string[] = [];
 

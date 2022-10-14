@@ -3,6 +3,7 @@ import * as path from 'path';
 import { runTests } from 'vscode-test';
 
 async function main() {
+  const nodejsBin = process.execPath;
   try {
     // The folder containing the Extension Manifest package.json
     // Passed to `--extensionDevelopmentPath`
@@ -13,7 +14,7 @@ async function main() {
     const extensionTestsPath = path.resolve(__dirname, './index');
 
     // Download VS Code, unzip it and run the integration test
-    await runTests({ extensionDevelopmentPath, extensionTestsPath });
+    await runTests({ extensionDevelopmentPath, extensionTestsPath, extensionTestsEnv: { NODEJS_BIN: nodejsBin } });
   } catch (err) {
     console.error(err);
     console.error('Failed to run tests');

@@ -19,7 +19,11 @@ async function updateGtkThemeVariant(
             processOutput,
         );
     } catch (error) {
-        vscode.window.showErrorMessage(error.message);
+        if (error instanceof Error) {
+            vscode.window.showErrorMessage(error.message);
+        } else {
+            vscode.window.showErrorMessage(`An error occurred: ${error}`);
+        }
     }
 }
 
