@@ -61,7 +61,8 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package --allow-star-activation"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.0",
