@@ -1,0 +1,24 @@
+name: Publish
+on:
+  push:
+    branches: [ main ]
+  #release:
+  #  types: [ published ]
+
+jobs:
+   publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish to Open VSX Registry
+        uses: HaaLeo/publish-vscode-extension@v1
+        id: publishToOpenVSX
+        with:
+          pat: ${{ secrets.OPEN_VSX_TOKEN }}
+          dryRun: true
+      - name: Publish to Visual Studio Marketplace
+        uses: HaaLeo/publish-vscode-extension@v1
+        with:
+          dryRun: true
+          pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+          registryUrl: https://marketplace.visualstudio.com
+          extensionFile: ${{ steps.publishToOpenVSX.outputs.vsixPath }}

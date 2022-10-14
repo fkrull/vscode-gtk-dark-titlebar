@@ -1,4 +1,4 @@
-name: Test and Package
+name: Test
 
 on:
   push:
@@ -19,9 +19,3 @@ jobs:
         run: npm ci
       - name: run tests
         run: xvfb-run --auto-servernum npm test
-      - name: build package
-        run: npm run package
-      - uses: actions/upload-artifact@v3
-        with:
-          name: package
-          path: "*.vsix"
