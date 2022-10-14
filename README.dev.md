@@ -1,18 +1,20 @@
 # Dev notes
 ## Testing
 ```
+$ npm ci
 $ npm test
 ```
 Works on Windows.
 
 ## Updating dependencies
-Like other npm stuff? `npm outdated` will list outdated dependencies and their
-newest version; can be bumped by hand in `package.json`.
+Bump versions in lockfile with `npm update`. Show outdated major versions with
+`npm outdated`.
 
 ## Bundled xprop binaries
-xprop binaries are extracted from a (Debian-based) Docker image; the image is
-set in `Makefile`, for compatibility reasons it should be an older image. Run
-`make xprop-binaries` to extract the binaries for local use.
+The bundled xprop binaries are extracted from Debian packages. The accompanying
+.info file contains the package's metadata. To update, change the version in
+`update-xprop-binaries.sh` and rerun it. This requires the `dpkg-deb` tool to be
+installed.
 
 ## CI
 https://travis-ci.org/fkrull/vscode-gtk-dark-titlebar
