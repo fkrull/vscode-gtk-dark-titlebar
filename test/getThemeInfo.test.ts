@@ -10,7 +10,6 @@ function ext(themes: any): Extension<null> {
 function extWithPkgJson(packageJSON: any): Extension<null> {
     return {
         id: 'some.extension',
-        extensionUri: Uri.parse('file:///'),
         extensionKind: ExtensionKind.UI,
         extensionPath: '/',
         isActive: false,
