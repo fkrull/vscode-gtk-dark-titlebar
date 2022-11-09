@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import { Extension, ExtensionKind, Uri } from 'vscode';
+import { Extension, Uri } from 'vscode';
 
 import getThemeInfo from '../src/getThemeInfo';
 
@@ -10,7 +10,6 @@ function ext(themes: any): Extension<null> {
 function extWithPkgJson(packageJSON: any): Extension<null> {
     return {
         id: 'some.extension',
-        extensionKind: ExtensionKind.UI,
         extensionPath: '/',
         isActive: false,
         exports: null,
