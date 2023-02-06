@@ -67,7 +67,7 @@
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.11.18",
     "@types/vscode": "1.32.0",
-    "@vscode/test-electron": "^2.2.2",
+    "@vscode/test-electron": "^2.2.3",
     "mocha": "^10.2.0",
     "ovsx": "^0.8.0",
     "typemoq": "^2.1.0",
