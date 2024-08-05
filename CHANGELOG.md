@@ -1,6 +1,6 @@
 # Change Log for GTK Dark Title Bar
 
-## [1.3.1] - UNRELEASED
+## [1.3.1] - 2024-08-05
 - Add note about Wayland support situation to readme.
 - Add deprecation note and explanation.
 
