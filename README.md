@@ -1,3 +1,12 @@
+# DEPRECATED
+This extension doesn't work any more on recent versions of gnome-shell/mutter. The property that was used to force the title bar color scheme was removed.
+
+> Ok so I think this is a consequence of https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2175. Mutter/GNOME Shell changed the way they draw window borders for X11 windows that don't draw their own window borders. There's [a followup MR](https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2739#note_1610278) that has a comment mentioning that the `_GTK_THEME_VARIANT` property doesn't work any more.
+
+[issue](https://github.com/fkrull/vscode-gtk-dark-titlebar/issues/57)
+
+This change makes it likely impossible to implement this feature using an extension, without changes to either gnome-shell or VSCode itself.
+
 # Match the GNOME title bar to your VS Code theme
 
 [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=fkrull.gtk-dark-titlebar) <br>

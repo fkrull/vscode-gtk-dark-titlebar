@@ -2,6 +2,7 @@
 
 ## [1.3.1] - UNRELEASED
 - Add note about Wayland support situation to readme.
+- Add deprecation note and explanation.
 
 ## [1.3.0] - 2022-10-14
 - Update various dependencies.
